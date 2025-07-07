@@ -2,6 +2,8 @@
 
 A robust and secure file transfer utility built using C++ and OpenSSL, designed specifically for Windows systems. It allows encrypted file transfers over TCP sockets with integrity verification and resume support.
 
+**Note:** This is a single executable that can operate in both sender and receiver modes.
+
 ## Features
 
 - 🔐 **AES-256 Encryption** with unique IV per chunk
@@ -43,45 +45,63 @@ Ensure the following libraries are linked:
 
 ## Usage
 
-## Setting Visual Studio Enviroment
+### Setting Visual Studio Environment
 ```bash
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat
 ```
 (This is usually the path but you might need to alter this according to your path)
 
-## Compilation of the Code 
+### Compilation of the Code 
 ```bash
 cl /EHsc /std:c++17 secure_transfer.cpp /I"C:\Program Files\OpenSSL-Win64\include" /link /LIBPATH:"C:\Program Files\OpenSSL-Win64\lib\VC\x64\MD" libssl.lib libcrypto.lib ws2_32.lib
-
 ```
-(You might need to alter the path of the OpenSSL To run the Code)
-### Sender
+(You might need to alter the path of the OpenSSL to run the code)
+
+### Running the Program
+
+#### Sender Mode
 
 ```bash
-program.exe send <filepath> [port]
+secure_transfer.exe send <filepath> [port]
 ```
 
 **Example:**
 
 ```bash
-program.exe send "C:\Users\User\Desktop\file.txt" 8888
+secure_transfer.exe send "C:\Users\User\Desktop\file.txt" 8888
 ```
 
-After running, it will display a 6-digit auth code. Provide this to the receiver.
+**Steps:**
+1. Run the command above
+2. Enter an encryption password when prompted
+3. Note the 6-digit authentication code displayed
+4. Share this code with the receiver
+5. Wait for receiver to connect
 
----
-
-### Receiver
+#### Receiver Mode
 
 ```bash
-program.exe receive <server_ip> <auth_code> <save_directory> [port]
+secure_transfer.exe receive <server_ip> <auth_code> <save_directory> [port]
 ```
 
 **Example:**
 
 ```bash
-program.exe receive 192.168.1.10 123456 "C:\Users\User\Downloads" 8888
+secure_transfer.exe receive 192.168.1.10 123456 "C:\Users\User\Downloads" 8888
 ```
+
+**Steps:**
+1. Get the authentication code from the sender
+2. Run the command above with sender's IP address
+3. Enter the same encryption password used by sender
+4. Wait for file transfer to complete
+
+### Finding IP Address
+On the sender's computer, run:
+```bash
+ipconfig
+```
+Look for "IPv4 Address" under your network adapter (usually starts with 192.168.x.x)
 
 ---
 
