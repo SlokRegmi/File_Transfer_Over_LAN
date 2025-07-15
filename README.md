@@ -148,7 +148,7 @@ All logic is contained in `secure_transfer.cpp`, including:
 
 ## Author
 
-Developed by Slok Regmi 
+Developed by Slok Regmi , Sunil Giri , Laxman Khatri
 Feel free to contribute or suggest enhancements!
 
 ---
